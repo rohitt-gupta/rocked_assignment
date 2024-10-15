@@ -17,6 +17,7 @@ router.post("/", validateUser, register);
 router.get("/", getUsers);
 router.get("/:id", getUserById);
 router.patch("/:id", updateUser);
+
 router.post("/enroll", enrollUser);
 router.get("/certificates/:user_id", getUserCertificates);
 export default router;

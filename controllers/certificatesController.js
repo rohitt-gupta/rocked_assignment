@@ -17,6 +17,7 @@ const createCertificate = async (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(422).json({ errors: errors.array() });
 	}
+
 	const end_date = new Date(start_date);
 	end_date.setMonth(end_date.getMonth() + duration);
 	console.log("end_date", end_date);
@@ -73,11 +74,11 @@ const editCertificate = async (req, res) => {
 		return res.status(400).json({ message: "Certificate ID is required" });
 	}
 
-	if (status === "PUBLISHED") {
-		return res
-			.status(405)
-			.json({ message: "Cannot Modify published certificate!" });
-	}
+	// if (status === "PUBLISHED") {
+	// 	return res
+	// 		.status(405)
+	// 		.json({ message: "Cannot Modify published certificate!" });
+	// }
 
 	try {
 		const [result] = await db.promise().query(
@@ -92,7 +93,6 @@ const editCertificate = async (req, res) => {
 			[certificate_name, issuer, overview, duration, status, id]
 		);
 
-		console.log("result", result);
 		if (result.affectedRows === 1) {
 			res.status(201).json({
 				message: "Certificate updated successfully",
